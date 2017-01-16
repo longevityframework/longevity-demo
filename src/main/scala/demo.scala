@@ -1,16 +1,23 @@
 package domainModel {
   import longevity.model.annotations._
 
-  // define our domain classes:
+  // first, define our domain classes:
 
-  @persistent(keySet = Set(partitionKey(User.props.username)))
+  // the @persistent is the thing we want to persist in its own table.
+  // the primaryKey describes how we want to retrieve the objects.
+
+  @persistent(keySet = Set(primaryKey(User.props.username)))
   case class User(
     username: Username,
     email: Email,
     fullName: FullName)
 
+  // @keyVal means we can retrieve users by username:
+
   @keyVal[User]
   case class Username(username: String)
+
+  // a @component is a part of the object we want to persist:
 
   @component
   case class Email(email: String)
@@ -50,7 +57,7 @@ object applicationServices extends App {
 
   // create, retrieve, update, delete
 
-  for {
+  val f = for {
     created   <- userRepo.create(user)
     retrieved <- userRepo.retrieveOne(username)
     modified   = retrieved.map(_.copy(email = newEmail))
@@ -61,10 +68,17 @@ object applicationServices extends App {
     println(s"retrieved ${retrieved.get}")
     println(s"updated   ${updated.get}")
     println(s"deleted   ${deleted.get}")
-
-    // close db connection after CRUD ops complete
-
-    context.repoPool.closeSession()
   }
+
+  // wait for the CRUD ops to complete
+
+  import scala.concurrent.Await
+  import scala.concurrent.duration.Duration
+
+  Await.result(f, Duration.Inf)
+
+  // close db connection after CRUD ops complete
+
+  context.repoPool.closeSession()
 
 }
