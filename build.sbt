@@ -2,13 +2,13 @@ scalaVersion := "2.12.1"
 
 fork in run := true
 
-libraryDependencies += "org.longevityframework" %% "longevity" % "0.21.0"
+libraryDependencies += "org.longevityframework" %% "longevity" % "0.22.0"
 
-libraryDependencies += "org.longevityframework" %% "longevity-cassandra-deps" % "0.21.0"
+libraryDependencies += "org.longevityframework" %% "longevity-cassandra-deps" % "0.22.0"
 
-libraryDependencies += "org.longevityframework" %% "longevity-mongodb-deps" % "0.21.0"
+libraryDependencies += "org.longevityframework" %% "longevity-mongodb-deps" % "0.22.0"
 
-libraryDependencies += "org.longevityframework" %% "longevity-sqlite-deps" % "0.21.0"
+libraryDependencies += "org.longevityframework" %% "longevity-sqlite-deps" % "0.22.0"
 
 libraryDependencies += "com.github.nscala-time" %% "nscala-time" % "2.16.0"
 
