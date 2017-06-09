@@ -3,35 +3,34 @@ package domainModel {
 
   // first, define our domain classes:
 
-  // the @persistent is the thing we want to persist in its own table.
-  // the primaryKey describes how we want to retrieve the objects.
+  // gather all the domain classes into a domain model
+  @domainModel trait DomainModel
 
-  @persistent(keySet = Set(primaryKey(User.props.username)))
+  // the @persistent is the thing we want to persist in its own table
+  @persistent[DomainModel]
   case class User(
     username: Username,
     email: Email,
     fullName: FullName)
 
-  // @keyVal means we can retrieve users by username:
+  object User {
+    // the primaryKey describes how we want to retrieve the objects
+    implicit val usernameKey = primaryKey(props.username)
+  }
 
-  @keyVal[User]
+  // @keyVal is the type of the values we can use to look up by key
+  @keyVal[DomainModel, User]
   case class Username(username: String)
 
-  // a @component is a part of the object we want to persist:
-
-  @component
+  // a @component is a part of the object we want to persist
+  @component[DomainModel]
   case class Email(email: String)
 
-  @component
+  @component[DomainModel]
   case class FullName(
     last: String,
     first: String,
     title: Option[String])
-
-  // gather all the domain classes into a domain model:
-
-  @domainModel
-  object DomainModel
 }
 
 object applicationServices extends App {
@@ -41,11 +40,8 @@ object applicationServices extends App {
 
   // build the context for our domain model
 
-  val context  = LongevityContext(DomainModel)
-
-  // get the user repository
-
-  val userRepo = context.repoPool[User]
+  val context  = LongevityContext[DomainModel]()
+  val repo     = context.repo
 
   // we are now ready to start persisting users
 
@@ -58,11 +54,11 @@ object applicationServices extends App {
   // create, retrieve, update, delete
 
   val f = for {
-    created   <- userRepo.create(user)
-    retrieved <- userRepo.retrieveOne(username)
+    created   <- repo.create(user)
+    retrieved <- repo.retrieveOne[User](username)
     modified   = retrieved.map(_.copy(email = newEmail))
-    updated   <- userRepo.update(modified)
-    deleted   <- userRepo.delete(updated)
+    updated   <- repo.update(modified)
+    deleted   <- repo.delete(updated)
   } yield {
     println(s"created   ${created.get}")
     println(s"retrieved ${retrieved.get}")
@@ -79,6 +75,6 @@ object applicationServices extends App {
 
   // close db connection after CRUD ops complete
 
-  context.repoPool.closeSession()
+  repo.closeSession()
 
 }
