@@ -1,8 +1,8 @@
-scalaVersion := "2.12.1"
+scalaVersion := "2.12.2"
 
 fork in run := true
 
-val lv = "0.23.0"
+val lv = "0.24-SNAPSHOT"
 
 libraryDependencies += "org.longevityframework" %% "longevity" % lv
 

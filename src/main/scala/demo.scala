@@ -54,6 +54,8 @@ object applicationServices extends App {
   // create, retrieve, update, delete
 
   val f = for {
+    ()        <- repo.openConnection()
+    ()        <- repo.createSchema()
     created   <- repo.create(user)
     retrieved <- repo.retrieveOne[User](username)
     modified   = retrieved.map(_.copy(email = newEmail))
@@ -75,6 +77,6 @@ object applicationServices extends App {
 
   // close db connection after CRUD ops complete
 
-  repo.closeSession()
+  repo.closeConnection()
 
 }
