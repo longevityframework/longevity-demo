@@ -2,7 +2,9 @@ scalaVersion := "2.12.1"
 
 fork in run := true
 
-val lv = "0.23.0"
+mainClass in (Compile, run) := Some("futureApplication")
+
+val lv = "0.24.0"
 
 libraryDependencies += "org.longevityframework" %% "longevity" % lv
 
@@ -15,5 +17,7 @@ libraryDependencies += "org.longevityframework" %% "longevity-sqlite-deps" % lv
 libraryDependencies += "com.github.nscala-time" %% "nscala-time" % "2.16.0"
 
 libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.21"
+
+libraryDependencies += "org.typelevel" %% "cats-effect" % "0.3"
 
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)

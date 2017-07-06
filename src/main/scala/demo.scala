@@ -33,14 +33,15 @@ package domainModel {
     title: Option[String])
 }
 
-object applicationServices extends App {
+object futureApplication extends App {
   import domainModel._
   import longevity.context.LongevityContext
   import scala.concurrent.ExecutionContext.Implicits.global
+  import scala.concurrent.Future
 
   // build the context for our domain model
 
-  val context  = LongevityContext[DomainModel]()
+  val context  = LongevityContext[Future, DomainModel]()
   val repo     = context.repo
 
   // we are now ready to start persisting users
@@ -75,6 +76,6 @@ object applicationServices extends App {
 
   // close db connection after CRUD ops complete
 
-  repo.closeSession()
+  repo.closeConnection
 
 }
