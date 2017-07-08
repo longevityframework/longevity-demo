@@ -18,17 +18,15 @@ object blockingApplication extends App {
 
   // create, retrieve, update, delete
 
-  val created = repo.create(user)
-  println(s"created   ${created.get}")
-
+  val created   = repo.create(user)
   val retrieved = repo.retrieveOne[User](username)
+  val modified  = retrieved.map(_.copy(email = newEmail))
+  val updated   = repo.update(modified)
+  val deleted   = repo.delete(updated)
+
+  println(s"created   ${created.get}")
   println(s"retrieved ${retrieved.get}")
-
-  val modified = retrieved.map(_.copy(email = newEmail))
-  val updated = repo.update(modified)
   println(s"updated   ${updated.get}")
-
-  val deleted = repo.delete(updated)
   println(s"deleted   ${deleted.get}")
 
   repo.closeConnection
