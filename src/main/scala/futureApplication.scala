@@ -1,3 +1,7 @@
+package f
+@longevity.model.annotations.persistent[domainModel.DomainModel] case class Foo()
+
+
 object futureApplication extends App {
   import domainModel._
   import longevity.context.LongevityContext
@@ -22,7 +26,7 @@ object futureApplication extends App {
   val f = for {
     created   <- repo.create(user)
     retrieved <- repo.retrieveOne[User](username)
-    modified   = retrieved.map(_.copy(email = newEmail))
+    modified   = retrieved.modify(_.copy(email = newEmail))
     updated   <- repo.update(modified)
     deleted   <- repo.delete(updated)
   } yield {

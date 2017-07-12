@@ -20,7 +20,7 @@ object blockingApplication extends App {
 
   val created   = repo.create(user)
   val retrieved = repo.retrieveOne[User](username)
-  val modified  = retrieved.map(_.copy(email = newEmail))
+  val modified  = retrieved.modify(_.copy(email = newEmail))
   val updated   = repo.update(modified)
   val deleted   = repo.delete(updated)
 

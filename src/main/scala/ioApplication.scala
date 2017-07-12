@@ -23,7 +23,7 @@ object ioApplication extends App {
   val io = for {
     created   <- repo.create(user)
     retrieved <- repo.retrieveOne[User](username)
-    modified   = retrieved.map(_.copy(email = newEmail))
+    modified   = retrieved.modify(_.copy(email = newEmail))
     updated   <- repo.update(modified)
     deleted   <- repo.delete(updated)
     _         <- repo.closeConnection
