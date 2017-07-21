@@ -1,6 +1,5 @@
 scalaVersion := "2.12.2"
 fork in run := true
-mainClass in (Compile, run) := Some("futureApplication")
 
 val lv = "0.25-SNAPSHOT"
 
