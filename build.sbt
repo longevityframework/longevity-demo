@@ -1,7 +1,7 @@
 scalaVersion := "2.12.2"
 fork in run := true
 
-val lv = "0.25-SNAPSHOT"
+val lv = "0.25.0"
 
 libraryDependencies += "org.longevityframework" %% "longevity" % lv
 libraryDependencies += "org.longevityframework" %% "longevity-cassandra-deps" % lv
