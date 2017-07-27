@@ -4,7 +4,7 @@ fork in run := true
 
 mainClass in (Compile, run) := Some("futureApplication")
 
-val lv = "0.25-SNAPSHOT"
+val lv = "0.25.0"
 
 libraryDependencies += "org.longevityframework" %% "longevity" % lv
 libraryDependencies += "org.longevityframework" %% "longevity-cassandra-deps" % lv
