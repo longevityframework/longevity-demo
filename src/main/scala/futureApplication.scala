@@ -1,7 +1,3 @@
-package f
-@longevity.model.annotations.persistent[domainModel.DomainModel] case class Foo()
-
-
 object futureApplication extends App {
   import domainModel._
   import longevity.context.LongevityContext
