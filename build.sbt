@@ -7,6 +7,7 @@ mainClass in (Compile, run) := Some("futureApplication")
 val lv = "0.26-SNAPSHOT"
 
 libraryDependencies += "org.longevityframework" %% "longevity" % lv
+libraryDependencies += "org.longevityframework" %% "longevity-migrations" % lv
 libraryDependencies += "org.longevityframework" %% "longevity-cassandra-deps" % lv
 libraryDependencies += "org.longevityframework" %% "longevity-mongodb-deps" % lv
 libraryDependencies += "org.longevityframework" %% "longevity-sqlite-deps" % lv
