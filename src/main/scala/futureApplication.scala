@@ -10,18 +10,19 @@ object futureApplication extends App {
   val username = Username("sméagol")
   val oldEmail = Email("gollum@gmail.example.com")
   val newEmail = Email("sméagol@gmail.example.com")
-  val user     = User(username, oldEmail, "last", "first", Some("title"))
+  val fullname = FullName("last", "first", Some("title"))
+  val user     = User(username, oldEmail, fullname)
 
   val f = for {
-    created   <- repo.create(user)
+    // created   <- repo.create(user)
     retrieved <- repo.retrieveOne[User](username)
-    modified   = retrieved.modify(_.copy(email = newEmail))
-    updated   <- repo.update(modified)
+    // modified   = retrieved.modify(_.copy(email = newEmail))
+    // updated   <- repo.update(modified)
     // deleted   <- repo.delete(updated)
   } yield {
-    println(s"created   ${created.get}")
+    // println(s"created   ${created.get}")
     println(s"retrieved ${retrieved.get}")
-    println(s"updated   ${updated.get}")
+    // println(s"updated   ${updated.get}")
     // println(s"deleted   ${deleted.get}")
   }
 

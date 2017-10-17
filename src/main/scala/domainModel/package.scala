@@ -7,10 +7,7 @@ package domainModel {
   case class User(
     username: Username,
     email: Email,
-    // fullName: FullName)
-    last: String,
-    first: String,
-    title: Option[String])
+    fullName: FullName)
 
   object User {
     implicit val usernameKey = primaryKey(props.username)
@@ -22,9 +19,9 @@ package domainModel {
   @component[DomainModel]
   case class Email(email: String)
 
-  // @component[DomainModel]
-  // case class FullName(
-  //   last: String,
-  //   first: String,
-  //   title: Option[String])
+  @component[DomainModel]
+  case class FullName(
+    last: String,
+    first: String,
+    title: Option[String])
 }
