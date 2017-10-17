@@ -1,4 +1,4 @@
-package domainModel {
+package migrations.v1 {
   import longevity.model.annotations._
 
   @domainModel trait DomainModel
