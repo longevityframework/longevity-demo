@@ -1,6 +1,8 @@
 scalaVersion := "2.12.1"
 
 fork in run := true
+outputStrategy := Some(StdoutOutput)
+connectInput in run := true
 
 mainClass in (Compile, run) := Some("futureApplication")
 
