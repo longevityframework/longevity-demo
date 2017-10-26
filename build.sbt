@@ -6,7 +6,7 @@ connectInput in run := true
 
 mainClass in (Compile, run) := Some("futureApplication")
 
-val lv = "0.26-SNAPSHOT"
+val lv = "0.26.0"
 
 libraryDependencies += "org.longevityframework" %% "longevity" % lv
 libraryDependencies += "org.longevityframework" %% "longevity-migrations" % lv
